@@ -46,18 +46,19 @@ export default function Home() {
   const sendMessage = (text, sender) => {
     if (!text.trim() || !wsRef.current) return;
 
-    const message = { text, sender, timestamp: new Date().toISOString() };
+    const message = { 
+      text, 
+      sender, 
+      timestamp: new Date().toISOString() 
+    };
+    
+    
     wsRef.current.send(JSON.stringify(message));
 
-    setMessages(prev => {
-      const newMessages = [...prev, message];
-      localStorage.setItem('messages', JSON.stringify(newMessages));
-      return newMessages;
-    });
-
+    
     sender === 'left' ? setInputLeft('') : setInputRight('');
   };
-
+  
   return (
     <div>
       <Head>
